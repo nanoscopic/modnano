@@ -1,0 +1,22 @@
+SRCS = nanomsg-handler.c red_black_tree.c string_tree.c parser.c stack.c misc.c
+SRCSFORCE = /Tp nanomsg-handler.c /Tp red_black_tree.c /Tp string_tree.c /Tp parser.c /Tp stack.c /Tp misc.c
+HDRS = parser.h string_tree.h
+
+OBJS = misc.obj parser.obj red_black_tree.obj stack.obj string_tree.obj
+
+PROGRAM = nanomsg-handler.so
+
+all: $(PROGRAM)
+
+$(PROGRAM): 	$(SRCS)
+	cl /c $(SRCSFORCE) -I"C:\proj\lumithwin\httpd-2.4.29-Win64-VC15\Apache24\include" -I"nanomsg\include" /EHsc /DMSCOMP
+	link nanomsg-handler.obj $(OBJS) nanomsg/lib/nanomsg.lib "..\httpd-2.4.29-Win64-VC15\Apache24\lib\libhttpd.lib" "..\httpd-2.4.29-Win64-VC15\Apache24\lib\libapr-1.lib" "..\httpd-2.4.29-Win64-VC15\Apache24\lib\libaprutil-1.lib" /dll /SUBSYSTEM:WINDOWS /out:nanomsg-handler.so	
+
+clean:			
+	del /f *.obj *.lo *.o *.la *.slo *~ *.so *.lib
+
+
+
+
+
+
